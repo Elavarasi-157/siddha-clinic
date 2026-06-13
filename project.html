@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Clinic</title>
+<style>
+body { margin: 0; font-size: 16px; }
+.home { background-color: black; padding: 15px; }
+.header-top { display: flex; align-items: center; justify-content: center; }
+.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.header-top h1 { color: white; margin: 0; font-size: 26px; }
+.nav-links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 15px 0;
+  flex-wrap: wrap;
+}
+.nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 18px; }
+.nav-links a:hover { color: yellow; }
+.logout-btn {
+  color: #ff6b6b;
+  background: none;
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+  text-decoration: none;
+}
+.logout-btn:hover { background: #ff6b6b; color: white; }
+.user-greeting { color: #aaffaa; font-size: 14px; text-align: center; margin-top: 6px; }
+.mission-title { text-align: center; text-decoration: underline double; margin: 30px 0 20px; font-size: 30px; }
+.mission { font-size: 18px; line-height: 1.6; margin: 0 auto; width: 80%; text-align: left; }
+.name { display: block; text-align: right; margin-top: 10px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="home">
+  <div class="header-top">
+    <img src="clinic.jpg" alt="Clinic Logo">
+    <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  </div>
+  <nav class="nav-links">
+    <a href="home.html">HOME</a>
+    <a href="about.html">ABOUT US</a>
+    <a href="contact.html">CONTACT US</a>
+    <a href="review.html">LOCATION &amp; REVIEWS</a>
+    <a href="treatment.html">TREATMENTS</a>
+    <a href="timing.html">TIMINGS</a>
+    <a href="appointment.html" id="bookLink">BOOK APPOINTMENT</a>
+    <a href="doctor-appointments.html" id="apptLink" style="display:none;">PATIENT APPOINTMENTS</a>
+    <a href="login.html" class="logout-btn" onclick="sessionStorage.clear()">LOGOUT</a>
+  </nav>
+  <div class="user-greeting" id="userGreeting"></div>
+</div>
+
+<h1 class="mission-title">MISSION</h1>
+<p class="mission">
+➡️ To provide affordable, compassionate and quality healthcare services through Siddha system of medicine to all.<br>
+➡️ To provide safe and quality medical care through Siddha system of medicine to humanity.<br>
+➡️ To evolve as a centre of excellence in providing healthcare through Siddha system of medicine.<br><br>
+<b class="name">~Dr.Pon Nilavan.B.S.M.S</b>
+</p>
+
+<script>
+const role = sessionStorage.getItem('role');
+const username = sessionStorage.getItem('username');
+const name = sessionStorage.getItem('name');
+
+if (!role) window.location.href = 'login.html';
+
+const greetingEl = document.getElementById('userGreeting');
+greetingEl.textContent = role === 'doctor' ? '👨‍⚕️ Logged in as Doctor' : '🧑 Welcome, ' + (name || username);
+
+if (role === 'doctor') {
+  document.getElementById('bookLink').style.display = 'none';
+  document.getElementById('apptLink').style.display = 'inline';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+img,h1 { padding-left:250px; align-items:center; }
+.home { background-color:black; height:100px; }
+h1 { padding-top:20px; }
+table { margin-top:30px; font-size:20px; }
+.appointment { text-align:center; }
+table { margin:auto; text-align:left; }
+tr { height:40px; }
+</style>
+</head>
+<body>
+<div class="home">
+<img class="img" align="left" src="clinic.jpg" width="80px" height="80px" style="padding-right:10px;margin-top:10px">
+<h1 style="color:white;">SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+</div>
+<div class="appointment">
+<h2><label style="text-decoration:underline double;margin-bottom:0px;"><b>APPOINTMENT ORDER FORM</b></label></h2>
+<form id="myform">
+<table>
+<tr><td><label>Name</label></td><td><input type="text" id="name"></td></tr>
+<tr><td><label>Age</label></td><td><input type="number" id="age"></td></tr>
+<tr><td><label>Treatment</label></td><td><input type="text" id="treatment"></td></tr>
+<tr><td><label>Date and Time to visit</label></td><td><input type="datetime-local" id="date"></td></tr>
+<tr><td><label>Phone number</label></td><td><input type="number" id="phone"></td></tr>
+</table>
+</form><br>
+<button style="height:40px" onclick="store()">Submit</button>
+</div>
+<script>
+if (!sessionStorage.getItem('role')) window.location.href = 'login.html';
+
+function store() {
+  const appointment = {
+    name: document.getElementById("name").value,
+    age: document.getElementById("age").value,
+    treatment: document.getElementById("treatment").value,
+    date: document.getElementById("date").value,
+    phone: document.getElementById("phone").value
+  };
+  fetch("/api/appointments", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(appointment)
+  })
+  .then(response => {
+    if (response.ok) {
+      alert("Appointment saved successfully!");
+      document.getElementById("myform").reset();
+    } else {
+      response.text().then(t => alert("Failed: " + t));
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("Error connecting to server. Make sure the server is running on port 3000.");
+  });
+}
+</script>
+</body>
+</html>

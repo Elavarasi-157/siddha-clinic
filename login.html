@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - Sri Annamalaiyaar Siddha Clinic</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background: #f0f4f0; }
+.home {
+  background-color: black;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+.home img { width: 80px; height: 80px; margin-right: 15px; }
+.home h1 { color: white; font-size: 24px; }
+.login-container {
+  max-width: 420px;
+  margin: 60px auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 40px;
+}
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 22px;
+  color: #2c5f2e;
+  border-bottom: 2px solid #2c5f2e;
+  padding-bottom: 10px;
+}
+.role-tabs {
+  display: flex;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+.role-tabs button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+.role-tabs button.active { background: #2c5f2e; color: white; }
+.form-section { display: none; }
+.form-section.active { display: block; }
+.form-group { margin-bottom: 18px; }
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+.form-group input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.form-group input:focus { outline: none; border-color: #2c5f2e; }
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #2c5f2e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.btn:hover { background: #1e4a20; }
+.toggle-link { text-align: center; margin-top: 15px; font-size: 14px; }
+.toggle-link span { color: #2c5f2e; cursor: pointer; font-weight: bold; text-decoration: underline; }
+.error-msg { color: red; font-size: 13px; text-align: center; margin-top: 10px; display: none; }
+.success-msg { color: green; font-size: 13px; text-align: center; margin-top: 10px; display: none; }
+</style>
+</head>
+<body>
+<div class="home">
+  <img src="clinic.jpg" alt="Clinic Logo">
+  <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+</div>
+<div class="login-container">
+  <h2>🌿 Welcome — Please Login</h2>
+  <div class="role-tabs">
+    <button class="active" onclick="switchRole('patient')">🧑 Patient</button>
+    <button onclick="switchRole('doctor')">👨‍⚕️ Doctor</button>
+  </div>
+
+  <!-- Patient Section -->
+  <div id="patientSection" class="form-section active">
+    <div id="patientLogin">
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="pLoginUser" placeholder="Enter username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="pLoginPass" placeholder="Enter password">
+      </div>
+      <button class="btn" onclick="patientLogin()">Login</button>
+      <div class="toggle-link">New patient? <span onclick="showRegister()">Create Account</span></div>
+      <div class="error-msg" id="pLoginError">Invalid username or password.</div>
+    </div>
+    <div id="patientRegister" style="display:none;">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="pRegName" placeholder="Enter your full name">
+      </div>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="pRegUser" placeholder="Choose a username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="pRegPass" placeholder="Choose a password">
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="number" id="pRegPhone" placeholder="Enter phone number">
+      </div>
+      <button class="btn" onclick="patientRegister()">Create Account</button>
+      <div class="toggle-link">Already have an account? <span onclick="showLogin()">Login</span></div>
+      <div class="error-msg" id="pRegError">Registration failed. Try again.</div>
+      <div class="success-msg" id="pRegSuccess">Account created! Please login.</div>
+    </div>
+  </div>
+
+  <!-- Doctor Section -->
+  <div id="doctorSection" class="form-section">
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="dUser" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="dPass" placeholder="Enter password">
+    </div>
+    <button class="btn" onclick="doctorLogin()">Login</button>
+    <div class="error-msg" id="dLoginError">Invalid credentials.</div>
+  </div>
+</div>
+
+<script>
+function switchRole(role) {
+  document.querySelectorAll('.role-tabs button').forEach((b, i) => {
+    b.classList.toggle('active', (role === 'patient' && i === 0) || (role === 'doctor' && i === 1));
+  });
+  document.getElementById('patientSection').classList.toggle('active', role === 'patient');
+  document.getElementById('doctorSection').classList.toggle('active', role === 'doctor');
+}
+function showRegister() {
+  document.getElementById('patientLogin').style.display = 'none';
+  document.getElementById('patientRegister').style.display = 'block';
+}
+function showLogin() {
+  document.getElementById('patientRegister').style.display = 'none';
+  document.getElementById('patientLogin').style.display = 'block';
+}
+function patientLogin() {
+  const username = document.getElementById('pLoginUser').value.trim();
+  const password = document.getElementById('pLoginPass').value.trim();
+  const errEl = document.getElementById('pLoginError');
+  errEl.style.display = 'none';
+  fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password, role: 'patient' })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      sessionStorage.setItem('role', 'patient');
+      sessionStorage.setItem('username', username);
+      sessionStorage.setItem('name', data.name);
+      window.location.href = 'project.html';
+    } else {
+      errEl.style.display = 'block';
+    }
+  })
+  .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
+}
+function patientRegister() {
+  const name = document.getElementById('pRegName').value.trim();
+  const username = document.getElementById('pRegUser').value.trim();
+  const password = document.getElementById('pRegPass').value.trim();
+  const phone = document.getElementById('pRegPhone').value.trim();
+  const errEl = document.getElementById('pRegError');
+  const succEl = document.getElementById('pRegSuccess');
+  errEl.style.display = 'none';
+  succEl.style.display = 'none';
+  if (!name || !username || !password || !phone) {
+    errEl.textContent = 'All fields are required.';
+    errEl.style.display = 'block';
+    return;
+  }
+  fetch('/api/register', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, username, password, phone })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      succEl.style.display = 'block';
+      setTimeout(showLogin, 1500);
+    } else {
+      errEl.textContent = data.message || 'Username already taken.';
+      errEl.style.display = 'block';
+    }
+  })
+  .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
+}
+function doctorLogin() {
+  const username = document.getElementById('dUser').value.trim();
+  const password = document.getElementById('dPass').value.trim();
+  const errEl = document.getElementById('dLoginError');
+  errEl.style.display = 'none';
+  fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username, password, role: 'doctor' })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.success) {
+      sessionStorage.setItem('role', 'doctor');
+      sessionStorage.setItem('username', username);
+      window.location.href = 'project.html';
+    } else {
+      errEl.style.display = 'block';
+    }
+  })
+  .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
+}
+</script>
+</body>
+</html>
