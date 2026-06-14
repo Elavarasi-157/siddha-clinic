@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clinic</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
+* { box-sizing: border-box; }
 body { margin: 0; font-size: 16px; }
-.home { background-color: black; padding: 15px 20px; }
-.header-top { display: flex; align-items: center; justify-content: center; }
-.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.home { background-color: black; padding: 12px 16px; }
+.header-top { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; text-align: center; }
+.header-top img { width: 60px; height: 60px; }
 .header-top h1 {
   color: white;
   font-family: 'Playfair Display', serif;
-  font-size: 26px;
+  font-size: clamp(16px, 3vw, 26px);
   margin: 0;
 }
 .nav-links {
-  margin-top: 15px;
+  margin-top: 10px;
   display: flex;
   justify-content: center;
-  gap: 40px;
-  padding: 10px 0;
   flex-wrap: wrap;
-  align-items: center;
+  gap: 12px 24px;
+  padding: 10px 0;
 }
-.nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 16px; }
+.nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: clamp(13px, 2vw, 16px); }
 .nav-links a:hover { color: yellow; }
 .logout-btn {
   color: #ff6b6b;
   background: none;
   border: 1px solid #ff6b6b;
   border-radius: 4px;
-  padding: 4px 14px;
+  padding: 4px 12px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 14px);
   text-decoration: none;
   cursor: pointer;
 }
 .logout-btn:hover { background: #ff6b6b; color: white; }
-.user-greeting { color: #aaffaa; font-size: 14px; text-align: center; margin-top: 6px; }
-.mission-title { text-align: center; text-decoration: underline double; margin: 30px 0 20px; font-size: 30px; }
-.mission { font-size: 18px; line-height: 1.6; margin: 0 auto; width: 80%; text-align: left; }
+.user-greeting { color: #aaffaa; font-size: 13px; text-align: center; margin-top: 5px; }
+.mission-title { text-align: center; text-decoration: underline double; margin: 30px 16px 20px; font-size: clamp(22px, 5vw, 30px); }
+.mission { font-size: clamp(15px, 2.5vw, 18px); line-height: 1.7; margin: 0 auto; width: 90%; max-width: 800px; text-align: left; padding: 0 16px; }
 .name { display: block; text-align: right; margin-top: 10px; font-weight: bold; }
 </style>
 </head>
@@ -75,16 +76,9 @@ body { margin: 0; font-size: 16px; }
 const role = sessionStorage.getItem('role');
 const username = sessionStorage.getItem('username');
 const name = sessionStorage.getItem('name');
-
 if (!role) window.location.href = 'login.html';
-
 const greetingEl = document.getElementById('userGreeting');
-if (role === 'doctor') {
-  greetingEl.textContent = 'Logged in as Doctor';
-} else {
-  greetingEl.textContent = 'Welcome, ' + (name || username);
-}
-
+greetingEl.textContent = role === 'doctor' ? 'Logged in as Doctor' : 'Welcome, ' + (name || username);
 if (role === 'doctor') {
   document.getElementById('bookLink').style.display = 'none';
   document.getElementById('apptLink').style.display = 'inline';

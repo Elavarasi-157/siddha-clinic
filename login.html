@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - Sri Annamalaiyaar Siddha Clinic</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #f0f4f0; min-height: 100vh; }
 
-.home {
-  background-color: black;
-  padding: 15px;
-}
-.header-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.home { background-color: black; padding: 12px 16px; }
+.header-top { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+.header-top img { width: 60px; height: 60px; }
 .header-top h1 {
   color: white;
-  font-size: 26px;
   font-family: 'Playfair Display', serif;
+  font-size: clamp(16px, 3vw, 26px);
   margin: 0;
+  text-align: center;
 }
 
-/* Center the login card vertically and horizontally */
 .page-center {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 110px);
-  padding: 30px 20px;
+  min-height: calc(100vh - 90px);
+  padding: 20px 16px;
 }
 
 .login-container {
@@ -39,19 +33,19 @@ body { background: #f0f4f0; min-height: 100vh; }
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  padding: 40px;
+  padding: 30px 24px;
 }
 .login-container h2 {
   text-align: center;
-  margin-bottom: 25px;
-  font-size: 22px;
+  margin-bottom: 20px;
+  font-size: clamp(16px, 4vw, 22px);
   color: #2c5f2e;
   border-bottom: 2px solid #2c5f2e;
   padding-bottom: 10px;
 }
 .role-tabs {
   display: flex;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid #ccc;
@@ -69,7 +63,7 @@ body { background: #f0f4f0; min-height: 100vh; }
 .role-tabs button.active { background: #2c5f2e; color: white; }
 .form-section { display: none; }
 .form-section.active { display: block; }
-.form-group { margin-bottom: 18px; }
+.form-group { margin-bottom: 16px; }
 .form-group label {
   display: block;
   margin-bottom: 5px;
@@ -82,7 +76,7 @@ body { background: #f0f4f0; min-height: 100vh; }
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 .form-group input:focus { outline: none; border-color: #2c5f2e; }
 .btn {
@@ -104,7 +98,6 @@ body { background: #f0f4f0; min-height: 100vh; }
 </style>
 </head>
 <body>
-
 <div class="home">
   <div class="header-top">
     <img src="clinic.jpg" alt="Clinic Logo">
@@ -115,7 +108,6 @@ body { background: #f0f4f0; min-height: 100vh; }
 <div class="page-center">
   <div class="login-container">
     <h2>🌿 Welcome — Please Login</h2>
-
     <div class="role-tabs">
       <button id="patientTab" class="active" onclick="switchRole('patient')">Patient</button>
       <button id="doctorTab" onclick="switchRole('doctor')">Doctor</button>
@@ -136,7 +128,6 @@ body { background: #f0f4f0; min-height: 100vh; }
         <div class="toggle-link">New patient? <span onclick="showRegister()">Create Account</span></div>
         <div class="error-msg" id="pLoginError">Invalid username or password.</div>
       </div>
-
       <div id="patientRegister" style="display:none;">
         <div class="form-group">
           <label>Full Name</label>
@@ -179,7 +170,6 @@ body { background: #f0f4f0; min-height: 100vh; }
 
 <script>
 switchRole('patient');
-
 function switchRole(role) {
   document.getElementById('patientTab').classList.toggle('active', role === 'patient');
   document.getElementById('doctorTab').classList.toggle('active', role === 'doctor');
@@ -192,17 +182,14 @@ function switchRole(role) {
   document.getElementById('pLoginError').style.display = 'none';
   document.getElementById('dLoginError').style.display = 'none';
 }
-
 function showRegister() {
   document.getElementById('patientLogin').style.display = 'none';
   document.getElementById('patientRegister').style.display = 'block';
 }
-
 function showLogin() {
   document.getElementById('patientRegister').style.display = 'none';
   document.getElementById('patientLogin').style.display = 'block';
 }
-
 function patientLogin() {
   const username = document.getElementById('pLoginUser').value.trim();
   const password = document.getElementById('pLoginPass').value.trim();
@@ -220,13 +207,10 @@ function patientLogin() {
       sessionStorage.setItem('username', username);
       sessionStorage.setItem('name', data.name);
       window.location.href = 'project.html';
-    } else {
-      errEl.style.display = 'block';
-    }
+    } else { errEl.style.display = 'block'; }
   })
   .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
 }
-
 function patientRegister() {
   const name = document.getElementById('pRegName').value.trim();
   const username = document.getElementById('pRegUser').value.trim();
@@ -234,12 +218,9 @@ function patientRegister() {
   const phone = document.getElementById('pRegPhone').value.trim();
   const errEl = document.getElementById('pRegError');
   const succEl = document.getElementById('pRegSuccess');
-  errEl.style.display = 'none';
-  succEl.style.display = 'none';
+  errEl.style.display = 'none'; succEl.style.display = 'none';
   if (!name || !username || !password || !phone) {
-    errEl.textContent = 'All fields are required.';
-    errEl.style.display = 'block';
-    return;
+    errEl.textContent = 'All fields are required.'; errEl.style.display = 'block'; return;
   }
   fetch('/api/register', {
     method: 'POST',
@@ -248,17 +229,11 @@ function patientRegister() {
   })
   .then(r => r.json())
   .then(data => {
-    if (data.success) {
-      succEl.style.display = 'block';
-      setTimeout(showLogin, 1500);
-    } else {
-      errEl.textContent = data.message || 'Username already taken.';
-      errEl.style.display = 'block';
-    }
+    if (data.success) { succEl.style.display = 'block'; setTimeout(showLogin, 1500); }
+    else { errEl.textContent = data.message || 'Username already taken.'; errEl.style.display = 'block'; }
   })
   .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
 }
-
 function doctorLogin() {
   const username = document.getElementById('dUser').value.trim();
   const password = document.getElementById('dPass').value.trim();
@@ -275,9 +250,7 @@ function doctorLogin() {
       sessionStorage.setItem('role', 'doctor');
       sessionStorage.setItem('username', username);
       window.location.href = 'project.html';
-    } else {
-      errEl.style.display = 'block';
-    }
+    } else { errEl.style.display = 'block'; }
   })
   .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
 }
