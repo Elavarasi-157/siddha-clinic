@@ -27,6 +27,12 @@ body { margin: 0; font-size: 16px; }
   font-size: clamp(12px, 2vw, 14px); text-decoration: none; cursor: pointer;
 }
 .logout-btn:hover { background: #ff6b6b; color: white; }
+.back-btn {
+  color: white; background: #2c5f2e; border: none;
+  border-radius: 4px; padding: 4px 14px; font-weight: bold;
+  font-size: clamp(12px, 2vw, 14px); text-decoration: none; cursor: pointer;
+}
+.back-btn:hover { background: #1e4a20; }
 .user-greeting { color: #aaffaa; font-size: 13px; text-align: center; margin-top: 5px; }
 .panel { margin: 24px auto; width: 95%; max-width: 1000px; padding: 0 8px; }
 .panel h2 { font-size: clamp(18px, 4vw, 26px); color: #2c5f2e; border-bottom: 3px solid #2c5f2e; padding-bottom: 10px; margin-bottom: 16px; }
@@ -56,6 +62,7 @@ body { margin: 0; font-size: 16px; }
     <a href="treatment.html">TREATMENTS</a>
     <a href="timing.html">TIMINGS</a>
     <a href="doctor-appointments.html">PATIENT APPOINTMENTS</a>
+    <a href="project.html" class="back-btn">← Back</a>
     <a href="login.html" class="logout-btn" onclick="sessionStorage.clear()">LOGOUT</a>
   </nav>
   <div class="user-greeting" id="userGreeting"></div>
