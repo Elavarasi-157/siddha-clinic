@@ -2,21 +2,40 @@
 <html>
 <head>
 <title>Login - Sri Annamalaiyaar Siddha Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: Arial, sans-serif; background: #f0f4f0; }
+body { background: #f0f4f0; min-height: 100vh; }
+
 .home {
   background-color: black;
-  height: 100px;
+  padding: 15px;
+}
+.header-top {
   display: flex;
   align-items: center;
-  padding-left: 20px;
+  justify-content: center;
 }
-.home img { width: 80px; height: 80px; margin-right: 15px; }
-.home h1 { color: white; font-size: 24px; }
+.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.header-top h1 {
+  color: white;
+  font-size: 26px;
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+}
+
+/* Center the login card vertically and horizontally */
+.page-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 110px);
+  padding: 30px 20px;
+}
+
 .login-container {
+  width: 100%;
   max-width: 420px;
-  margin: 60px auto;
   background: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -85,77 +104,80 @@ body { font-family: Arial, sans-serif; background: #f0f4f0; }
 </style>
 </head>
 <body>
+
 <div class="home">
-  <img src="clinic.jpg" alt="Clinic Logo">
-  <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  <div class="header-top">
+    <img src="clinic.jpg" alt="Clinic Logo">
+    <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  </div>
 </div>
-<div class="login-container">
-  <h2>🌿 Welcome — Please Login</h2>
 
-  <!-- Role Tabs — Patient is default -->
-  <div class="role-tabs">
-    <button id="patientTab" class="active" onclick="switchRole('patient')">Patient</button>
-    <button id="doctorTab" onclick="switchRole('doctor')">Doctor</button>
-  </div>
+<div class="page-center">
+  <div class="login-container">
+    <h2>🌿 Welcome — Please Login</h2>
 
-  <!-- Patient Section -->
-  <div id="patientSection" class="form-section active">
-    <div id="patientLogin">
+    <div class="role-tabs">
+      <button id="patientTab" class="active" onclick="switchRole('patient')">Patient</button>
+      <button id="doctorTab" onclick="switchRole('doctor')">Doctor</button>
+    </div>
+
+    <!-- Patient Section -->
+    <div id="patientSection" class="form-section active">
+      <div id="patientLogin">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="pLoginUser" placeholder="Enter username" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="pLoginPass" placeholder="Enter password" autocomplete="new-password">
+        </div>
+        <button class="btn" onclick="patientLogin()">Login</button>
+        <div class="toggle-link">New patient? <span onclick="showRegister()">Create Account</span></div>
+        <div class="error-msg" id="pLoginError">Invalid username or password.</div>
+      </div>
+
+      <div id="patientRegister" style="display:none;">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="pRegName" placeholder="Enter your full name" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="pRegUser" placeholder="Choose a username" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="pRegPass" placeholder="Choose a password" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="number" id="pRegPhone" placeholder="Enter phone number" autocomplete="off">
+        </div>
+        <button class="btn" onclick="patientRegister()">Create Account</button>
+        <div class="toggle-link">Already have an account? <span onclick="showLogin()">Login</span></div>
+        <div class="error-msg" id="pRegError">Registration failed. Try again.</div>
+        <div class="success-msg" id="pRegSuccess">Account created! Please login.</div>
+      </div>
+    </div>
+
+    <!-- Doctor Section -->
+    <div id="doctorSection" class="form-section">
       <div class="form-group">
         <label>Username</label>
-        <!-- autocomplete="off" prevents browser autofill -->
-        <input type="text" id="pLoginUser" placeholder="Enter username" autocomplete="off">
+        <input type="text" id="dUser" placeholder="Enter username" autocomplete="off">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="pLoginPass" placeholder="Enter password" autocomplete="new-password">
+        <input type="password" id="dPass" placeholder="Enter password" autocomplete="new-password">
       </div>
-      <button class="btn" onclick="patientLogin()">Login</button>
-      <div class="toggle-link">New patient? <span onclick="showRegister()">Create Account</span></div>
-      <div class="error-msg" id="pLoginError">Invalid username or password.</div>
+      <button class="btn" onclick="doctorLogin()">Login</button>
+      <div class="error-msg" id="dLoginError">Invalid credentials.</div>
     </div>
-
-    <div id="patientRegister" style="display:none;">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="pRegName" placeholder="Enter your full name" autocomplete="off">
-      </div>
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" id="pRegUser" placeholder="Choose a username" autocomplete="off">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="pRegPass" placeholder="Choose a password" autocomplete="new-password">
-      </div>
-      <div class="form-group">
-        <label>Phone Number</label>
-        <input type="number" id="pRegPhone" placeholder="Enter phone number" autocomplete="off">
-      </div>
-      <button class="btn" onclick="patientRegister()">Create Account</button>
-      <div class="toggle-link">Already have an account? <span onclick="showLogin()">Login</span></div>
-      <div class="error-msg" id="pRegError">Registration failed. Try again.</div>
-      <div class="success-msg" id="pRegSuccess">Account created! Please login.</div>
-    </div>
-  </div>
-
-  <!-- Doctor Section -->
-  <div id="doctorSection" class="form-section">
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" id="dUser" placeholder="Enter username" autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-      <input type="password" id="dPass" placeholder="Enter password" autocomplete="new-password">
-    </div>
-    <button class="btn" onclick="doctorLogin()">Login</button>
-    <div class="error-msg" id="dLoginError">Invalid credentials.</div>
   </div>
 </div>
 
 <script>
-// Always start on patient tab
 switchRole('patient');
 
 function switchRole(role) {
@@ -163,8 +185,6 @@ function switchRole(role) {
   document.getElementById('doctorTab').classList.toggle('active', role === 'doctor');
   document.getElementById('patientSection').classList.toggle('active', role === 'patient');
   document.getElementById('doctorSection').classList.toggle('active', role === 'doctor');
-
-  // Clear all fields and errors when switching tabs
   document.getElementById('pLoginUser').value = '';
   document.getElementById('pLoginPass').value = '';
   document.getElementById('dUser').value = '';

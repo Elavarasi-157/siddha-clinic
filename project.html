@@ -2,32 +2,39 @@
 <html>
 <head>
 <title>Clinic</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
 body { margin: 0; font-size: 16px; }
-.home { background-color: black; padding: 15px; }
+.home { background-color: black; padding: 15px 20px; }
 .header-top { display: flex; align-items: center; justify-content: center; }
 .header-top img { width: 80px; height: 80px; margin-right: 15px; }
-.header-top h1 { color: white; margin: 0; font-size: 26px; }
+.header-top h1 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin: 0;
+}
 .nav-links {
-  margin-top: 20px;
+  margin-top: 15px;
   display: flex;
   justify-content: center;
-  gap: 50px;
-  padding: 15px 0;
+  gap: 40px;
+  padding: 10px 0;
   flex-wrap: wrap;
+  align-items: center;
 }
-.nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 18px; }
+.nav-links a { color: white; text-decoration: none; font-weight: bold; font-size: 16px; }
 .nav-links a:hover { color: yellow; }
 .logout-btn {
   color: #ff6b6b;
   background: none;
   border: 1px solid #ff6b6b;
   border-radius: 4px;
-  padding: 4px 12px;
-  cursor: pointer;
+  padding: 4px 14px;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
   text-decoration: none;
+  cursor: pointer;
 }
 .logout-btn:hover { background: #ff6b6b; color: white; }
 .user-greeting { color: #aaffaa; font-size: 14px; text-align: center; margin-top: 6px; }
@@ -71,7 +78,6 @@ const name = sessionStorage.getItem('name');
 
 if (!role) window.location.href = 'login.html';
 
-// No emoji — just plain text greeting
 const greetingEl = document.getElementById('userGreeting');
 if (role === 'doctor') {
   greetingEl.textContent = 'Logged in as Doctor';

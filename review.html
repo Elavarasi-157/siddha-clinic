@@ -1,5 +1,49 @@
 <!DOCTYPE html>
 <html>
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7604502748864!2d80.09491257277514!3d12.923112115944171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f5535b60a321%3A0xeac365617c2a3ea3!2sSRI%20ANNAMALAIYAR%20SIDDHA%20CLINIC!5e0!3m2!1sen!2sin!4v1749452051750!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-</iframe>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { display: flex; flex-direction: column; height: 100vh; }
+.home { background-color: black; padding: 10px 20px; }
+.header-top { display: flex; align-items: center; justify-content: center; }
+.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.header-top h1 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin: 0;
+}
+.nav-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0 4px 0;
+}
+.logout-btn {
+  color: #ff6b6b;
+  background: none;
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.logout-btn:hover { background: #ff6b6b; color: white; }
+iframe { flex: 1; border: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div class="home">
+  <div class="header-top">
+    <img src="clinic.jpg" width="80px" height="80px" style="padding-right:10px;">
+    <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  </div>
+  <div class="nav-bar">
+    <a href="login.html" class="logout-btn" onclick="sessionStorage.clear()">LOGOUT</a>
+  </div>
+</div>
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.7604502748864!2d80.09491257277514!3d12.923112115944171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a52f5535b60a321%3A0xeac365617c2a3ea3!2sSRI%20ANNAMALAIYAR%20SIDDHA%20CLINIC!5e0!3m2!1sen!2sin!4v1749452051750!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</body>
 </html>

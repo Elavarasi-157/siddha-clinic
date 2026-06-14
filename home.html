@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <style>
-img,h1
-{
-padding-left:250px;
-align-items:center;
+.home { background-color: black; height: auto; padding: 10px 20px; }
+.header-top { display: flex; align-items: center; justify-content: center; }
+.header-top img { width: 80px; height: 80px; margin-right: 15px; }
+.header-top h1 {
+  color: white;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin: 0;
 }
-.home{
-background-color:black;
-height:100px;
+.nav-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0 4px 0;
 }
-h1{
-padding-top:20px;
+.logout-btn {
+  color: #ff6b6b;
+  background: none;
+  border: 1px solid #ff6b6b;
+  border-radius: 4px;
+  padding: 4px 14px;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
 }
-b{
-font-size:30px;
-}
-p,ul
-{
-font-size:25px;
-}
+.logout-btn:hover { background: #ff6b6b; color: white; }
+h1 { padding-top: 20px; }
+b { font-size: 30px; }
+p, ul { font-size: 25px; }
 </style>
 </head>
 <body>
 <div class="home">
-<img class="img" align="left" src="clinic.jpg" width="80px" height="80px" style="padding-right:10px;margin-top:10px">
-<h1 style="color:white;">SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  <div class="header-top">
+    <img class="img" src="clinic.jpg" width="80px" height="80px" style="padding-right:10px;">
+    <h1>SRI ANNAMALAIYAAR SIDDHA CLINIC</h1>
+  </div>
+  <div class="nav-bar">
+    <a href="login.html" class="logout-btn" onclick="sessionStorage.clear()">LOGOUT</a>
+  </div>
 </div>
 <h1>Welcome to Sri Annamalaiyaar Siddha Clinic!</h1>
-<p>We provide traditional siddha treatments with experienced doctors. Book appointments, check timings, and explore our treatments online.</p>
+<p>We provide traditional siddha treatments with experienced doctors. Book appointments, check timings, and explore our treatments online.</p>
 <h1>Our Specialties</h1>
 <ul>
   <li>Skin Disorders</li>
@@ -38,8 +54,8 @@ font-size:25px;
   <li>Hair Fall Treatment</li>
 </ul>
 <p>Click the below link to visit...</p>
-<a href="treatment.html"><b>➡️Treatments</a><br><br>
-<a href="timing.html">➡️Timings</a><br><br>
-<a href="appointment.html">➡️Appointment through online</a></b>
+<a href="treatment.html"><b>➡️Treatments</b></a><br><br>
+<a href="timing.html"><b>➡️Timings</b></a><br><br>
+<a href="appointment.html"><b>➡️Appointment through online</b></a>
 </body>
 </html>
