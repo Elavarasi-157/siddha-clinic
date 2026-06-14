@@ -71,8 +71,13 @@ const name = sessionStorage.getItem('name');
 
 if (!role) window.location.href = 'login.html';
 
+// No emoji — just plain text greeting
 const greetingEl = document.getElementById('userGreeting');
-greetingEl.textContent = role === 'doctor' ? '👨‍⚕️ Logged in as Doctor' : '🧑 Welcome, ' + (name || username);
+if (role === 'doctor') {
+  greetingEl.textContent = 'Logged in as Doctor';
+} else {
+  greetingEl.textContent = 'Welcome, ' + (name || username);
+}
 
 if (role === 'doctor') {
   document.getElementById('bookLink').style.display = 'none';

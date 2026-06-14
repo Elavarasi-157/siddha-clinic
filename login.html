@@ -91,9 +91,11 @@ body { font-family: Arial, sans-serif; background: #f0f4f0; }
 </div>
 <div class="login-container">
   <h2>🌿 Welcome — Please Login</h2>
+
+  <!-- Role Tabs — Patient is default -->
   <div class="role-tabs">
-    <button class="active" onclick="switchRole('patient')">🧑 Patient</button>
-    <button onclick="switchRole('doctor')">👨‍⚕️ Doctor</button>
+    <button id="patientTab" class="active" onclick="switchRole('patient')">Patient</button>
+    <button id="doctorTab" onclick="switchRole('doctor')">Doctor</button>
   </div>
 
   <!-- Patient Section -->
@@ -101,32 +103,34 @@ body { font-family: Arial, sans-serif; background: #f0f4f0; }
     <div id="patientLogin">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="pLoginUser" placeholder="Enter username">
+        <!-- autocomplete="off" prevents browser autofill -->
+        <input type="text" id="pLoginUser" placeholder="Enter username" autocomplete="off">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="pLoginPass" placeholder="Enter password">
+        <input type="password" id="pLoginPass" placeholder="Enter password" autocomplete="new-password">
       </div>
       <button class="btn" onclick="patientLogin()">Login</button>
       <div class="toggle-link">New patient? <span onclick="showRegister()">Create Account</span></div>
       <div class="error-msg" id="pLoginError">Invalid username or password.</div>
     </div>
+
     <div id="patientRegister" style="display:none;">
       <div class="form-group">
         <label>Full Name</label>
-        <input type="text" id="pRegName" placeholder="Enter your full name">
+        <input type="text" id="pRegName" placeholder="Enter your full name" autocomplete="off">
       </div>
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="pRegUser" placeholder="Choose a username">
+        <input type="text" id="pRegUser" placeholder="Choose a username" autocomplete="off">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="pRegPass" placeholder="Choose a password">
+        <input type="password" id="pRegPass" placeholder="Choose a password" autocomplete="new-password">
       </div>
       <div class="form-group">
         <label>Phone Number</label>
-        <input type="number" id="pRegPhone" placeholder="Enter phone number">
+        <input type="number" id="pRegPhone" placeholder="Enter phone number" autocomplete="off">
       </div>
       <button class="btn" onclick="patientRegister()">Create Account</button>
       <div class="toggle-link">Already have an account? <span onclick="showLogin()">Login</span></div>
@@ -139,11 +143,11 @@ body { font-family: Arial, sans-serif; background: #f0f4f0; }
   <div id="doctorSection" class="form-section">
     <div class="form-group">
       <label>Username</label>
-      <input type="text" id="dUser" placeholder="Enter username">
+      <input type="text" id="dUser" placeholder="Enter username" autocomplete="off">
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" id="dPass" placeholder="Enter password">
+      <input type="password" id="dPass" placeholder="Enter password" autocomplete="new-password">
     </div>
     <button class="btn" onclick="doctorLogin()">Login</button>
     <div class="error-msg" id="dLoginError">Invalid credentials.</div>
@@ -151,21 +155,34 @@ body { font-family: Arial, sans-serif; background: #f0f4f0; }
 </div>
 
 <script>
+// Always start on patient tab
+switchRole('patient');
+
 function switchRole(role) {
-  document.querySelectorAll('.role-tabs button').forEach((b, i) => {
-    b.classList.toggle('active', (role === 'patient' && i === 0) || (role === 'doctor' && i === 1));
-  });
+  document.getElementById('patientTab').classList.toggle('active', role === 'patient');
+  document.getElementById('doctorTab').classList.toggle('active', role === 'doctor');
   document.getElementById('patientSection').classList.toggle('active', role === 'patient');
   document.getElementById('doctorSection').classList.toggle('active', role === 'doctor');
+
+  // Clear all fields and errors when switching tabs
+  document.getElementById('pLoginUser').value = '';
+  document.getElementById('pLoginPass').value = '';
+  document.getElementById('dUser').value = '';
+  document.getElementById('dPass').value = '';
+  document.getElementById('pLoginError').style.display = 'none';
+  document.getElementById('dLoginError').style.display = 'none';
 }
+
 function showRegister() {
   document.getElementById('patientLogin').style.display = 'none';
   document.getElementById('patientRegister').style.display = 'block';
 }
+
 function showLogin() {
   document.getElementById('patientRegister').style.display = 'none';
   document.getElementById('patientLogin').style.display = 'block';
 }
+
 function patientLogin() {
   const username = document.getElementById('pLoginUser').value.trim();
   const password = document.getElementById('pLoginPass').value.trim();
@@ -189,6 +206,7 @@ function patientLogin() {
   })
   .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
 }
+
 function patientRegister() {
   const name = document.getElementById('pRegName').value.trim();
   const username = document.getElementById('pRegUser').value.trim();
@@ -220,6 +238,7 @@ function patientRegister() {
   })
   .catch(() => { errEl.textContent = 'Error connecting to server.'; errEl.style.display = 'block'; });
 }
+
 function doctorLogin() {
   const username = document.getElementById('dUser').value.trim();
   const password = document.getElementById('dPass').value.trim();
